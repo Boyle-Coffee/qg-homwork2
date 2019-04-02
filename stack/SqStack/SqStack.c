@@ -12,7 +12,11 @@ Status initStack(SqStack *s,int sizes){  //初始化栈
 }
 
 Status isEmptyStack(SqStack *s){   //判断栈是否为空
+<<<<<<< HEAD
 	if(s->top==-1)  //检查栈中结点个数，-1为零个
+=======
+	if(s->top=-1)  //检查栈中结点个数，-1为零个
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 		return SUCCESS;
 
 	return ERROR;
@@ -40,7 +44,10 @@ Status clearStack(SqStack *s){   //清空栈
 Status destroyStack(SqStack *s){  //销毁栈
 	if(!s)  //检查栈是否存在
 		return ERROR;
+<<<<<<< HEAD
 	free(s->elem);
+=======
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 	free(s);  //释放栈的空间
 
 	return SUCCESS;
@@ -85,4 +92,8 @@ Status popStack(SqStack *s,ElemType *data){   //出栈
 	s->top--; // 改变栈顶的位置
 
 	return SUCCESS;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8

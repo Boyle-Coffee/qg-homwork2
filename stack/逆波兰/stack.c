@@ -1,6 +1,10 @@
 #include <stdlib.h>
 
+<<<<<<< HEAD
 //针对complex double的顺序栈
+=======
+//针对double的顺序栈
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 Status initStack(SqStack *s,int sizes){  //初始化栈
 	s->elem=(ElemType*)malloc(sizes*sizeof(ElemType));
 	if(!(s->elem))
@@ -12,7 +16,11 @@ Status initStack(SqStack *s,int sizes){  //初始化栈
 }
 
 Status isEmptyStack(SqStack *s){   //判断栈是否为空
+<<<<<<< HEAD
 	if(s->top==-1)  //检查栈中结点个数，-1为零个
+=======
+	if(s->top=-1)  //检查栈中结点个数，-1为零个
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 		return SUCCESS;
 
 	return ERROR;
@@ -40,7 +48,10 @@ Status clearStack(SqStack *s){   //清空栈
 Status destroyStack(SqStack *s){  //销毁栈
 	if(!s)  //检查栈是否存在
 		return ERROR;
+<<<<<<< HEAD
 	free(s->elem);
+=======
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 	free(s);  //释放栈的空间
 
 	return SUCCESS;
@@ -100,7 +111,11 @@ Status initChStack(chStack *s,int sizes){  //初始化栈
 }
 
 Status isEmptyChStack(chStack *s){   //判断栈是否为空
+<<<<<<< HEAD
 	if(s->top==-1)  //检查栈中结点个数，-1为零个
+=======
+	if(s->top=-1)  //检查栈中结点个数，-1为零个
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 		return SUCCESS;
 
 	return ERROR;
@@ -128,7 +143,10 @@ Status clearChStack(chStack *s){   //清空栈
 Status destroyChStack(chStack *s){  //销毁栈
 	if(!s)  //检查栈是否存在
 		return ERROR;
+<<<<<<< HEAD
 	free(s->elem);
+=======
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 	free(s);  //释放栈的空间
 
 	return SUCCESS;
@@ -160,7 +178,11 @@ Status pushChStack(chStack *s,ElemType2 data){  //入栈
 		}
 	}
 	s->top++;  //改变栈顶的位置
+<<<<<<< HEAD
 	(s->elem)[s->top]=data;
+=======
+	s->elem[s->top]=data;
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 
 	return SUCCESS;
 }
@@ -174,3 +196,7 @@ Status popChStack(chStack *s,ElemType2 *data){   //出栈
 
 	return SUCCESS;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8

@@ -8,22 +8,37 @@ Status initLStack(LinkStack *s){   //初始化
 		return ERROR;
 	s->top->next=NULL;  //栈顶（栈底）的下一个结点为空（空栈）
     s->count=-1;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 	return SUCCESS;
 }
 
 Status isEmptyLStack(LinkStack *s){  //判断链栈是否为空
     if(s->count==-1)  //检查栈的元素的个数，-1代表零个
 		return SUCCESS;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 	return ERROR;
 }
 Status getTopLStack(LinkStack *s,ElemType *e){  //得到栈顶元素
     LinkStackPtr pd;
+<<<<<<< HEAD
 
 	if(s->count==-1||s)  //检查是否为空栈以及栈是否存在
 	return ERROR;
 
+=======
+	
+	if(s->count=-1||s)  //检查是否为空栈以及栈是否存在
+	return ERROR;
+	
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 	pd=s->top;  //pd指向栈顶
 	*e=pd->data;  //e接受出栈的数据
 
@@ -33,9 +48,15 @@ Status getTopLStack(LinkStack *s,ElemType *e){  //得到栈顶元素
 Status clearLStack(LinkStack *s){   //清空栈
     LinkStackPtr pc;
 
+<<<<<<< HEAD
 	if(s->count==-1||!s)  //检查是否为空栈以及栈是否存在
 	return ERROR;
 
+=======
+	if(s->count=-1||!s)  //检查是否为空栈以及栈是否存在
+	return ERROR;
+    
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 	while((s->top)->next){
     	pc=(s->top)->next;  //找到要释放的结点
 		(s->top)->next=pc->next;  //栈顶指向要出栈结点的下一个结点
@@ -51,12 +72,17 @@ Status destroyLStack(LinkStack *s){   //销毁栈
 
 	if(!(s))  //检查栈是否存在
 	return ERROR;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 	while((s->top)->next){
     	pc=(s->top)->next;  //找到要释放的结点
 		(s->top)->next=pc->next;  //栈顶指向要出栈结点的下一个结点
 	    free(pc);  //释放结点
 	}
+<<<<<<< HEAD
     free(s->top);  //释放栈顶
     free(s);  // 销毁空栈
 
@@ -67,6 +93,24 @@ Status LStackLength(LinkStack *s,int *length){    //检测栈长度
 	return ERROR;
 
 	*length=s->count+1; //通过count元素获得栈的大小 
+=======
+    free(s->top);  //释放栈顶，销毁空栈
+
+	return SUCCESS;
+}    
+Status LStackLength(LinkStack *s,int *length){    //检测栈长度
+    LinkStackPtr pt;
+	*length=0;  //初始化长度为零
+
+	if(!s)  //检查是否为空栈以及栈是否存在
+	return ERROR;
+
+	pt=s->top;
+	while(pt->next){  //检查到一个结点的next指向不为空，则转向下一个结点
+		(*length)++;  
+		pt=pt->next;
+	}
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 
 	return SUCCESS;
 }
@@ -74,6 +118,7 @@ Status pushLStack(LinkStack *s,ElemType data){   //入栈
     LinkStackPtr p;
 
 	if(!s)  //检查栈是否存在
+<<<<<<< HEAD
 		return ERROR;
 
 	if((p=(LinkStackPtr)malloc(sizeof(StackNode)))==NULL)  //检查新结点是否成功创建
@@ -81,6 +126,15 @@ Status pushLStack(LinkStack *s,ElemType data){   //入栈
 
 	p->data=data;  //输入新结点的数据域
 	p->next=s->top->next;  //插入新结点
+=======
+		return ERROR; 
+	
+	if((p=(LinkStackPtr)malloc(sizeof(StackNode)))==NULL)  //检查新结点是否成功创建
+		return ERROR;
+    
+	p->data=data;  //输入新结点的数据域
+	p->next=s->top->next;  //插入新结点 
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
     s->top->next=p;  //改变栈顶位置
 	s->count++;
 
@@ -91,15 +145,27 @@ Status popLStack(LinkStack *s,ElemType *data){   //出栈
 	LinkStackPtr p;
 
 	if(!s)  //检查栈是否存在
+<<<<<<< HEAD
 		return ERROR;
 	p=s->top->next;
 	if(p==NULL)  //检查是否为空栈
 		return ERROR;
 
+=======
+		return ERROR; 
+	p=s->top->next;
+	if(p==NULL)  //检查是否为空栈
+		return ERROR;
+    
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
     s->top->next=p->next;  //栈顶下移一位
 	*data=p->data;  //得到出栈数据
 	free(p);  //释放结点
 	s->count--;
 
 	return SUCCESS;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8

@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 #include <complex.h>
+=======
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 #ifndef STACK_H_INCLUDED
 #define STACK_H_INCLUDED
 
@@ -9,7 +12,11 @@ typedef enum Status {
 } Status;
 
 //’Î∂‘double–Õµƒ’ª
+<<<<<<< HEAD
 typedef complex double ElemType;
+=======
+typedef double ElemType;
+>>>>>>> 050e9010ebeaaf3e4f98440201e107e76887d6d8
 
 typedef struct SqStack {
 	ElemType *elem;
