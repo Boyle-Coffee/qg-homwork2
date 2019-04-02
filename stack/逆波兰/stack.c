@@ -40,6 +40,7 @@ Status clearStack(SqStack *s){   //清空栈
 Status destroyStack(SqStack *s){  //销毁栈
 	if(!s)  //检查栈是否存在
 		return ERROR;
+	free(s->elem);
 	free(s);  //释放栈的空间
 
 	return SUCCESS;
@@ -127,6 +128,7 @@ Status clearChStack(chStack *s){   //清空栈
 Status destroyChStack(chStack *s){  //销毁栈
 	if(!s)  //检查栈是否存在
 		return ERROR;
+	free(s->elem);
 	free(s);  //释放栈的空间
 
 	return SUCCESS;

@@ -16,14 +16,15 @@ int main()
     printf("the postfix expression is %s\nany key to continue",b);
 	getchar();
 	result=compute(b);  //¼ÆËã±í´ïÊ½
-	printf("the answer is %.3f+%.3fi",creal(result),cimag(result));
+	printf("the answer is %.3f%+.3fi",creal(result),cimag(result));
+	getchar();
 
 	return 0;
 }
 
 void translate(char str[],char exp[]){  //expÊı×éÓÃÓÚ´¢´æ³öÕ»µÄºó×º±í´ïÊ½£¬Ã¿¸öÊı×Ö£¨ÍêÕûµÄÊı×Ö£©»òÔËËã·ûºó¾ùÓĞÒ»¸ö¿Õ¸ñ
 	chStack s;
-	int i=0,j=0;
+	int i=0,j=0,oper=0;//modification ×÷Îª²¼¶ûÖµ±íÊ¾ÉÏÒ»¸ö×Ö·ûÊÇ·ñÊÇÔËËã·û£¬ÓÃÓÚ¼ì²éÊäÈë
 	char e,k;
 	char ch;
 
@@ -37,37 +38,56 @@ void translate(char str[],char exp[]){  //expÊı×éÓÃÓÚ´¢´æ³öÕ»µÄºó×º±í´ïÊ½£¬Ã¿¸öÊ
 						popChStack(&s,&e);
 						if(e!='(')
                         if(e!='(')
-                            exp[j++]='+';  //½«³öÕ»ÔªËØ¼ÓÈëÊı×é
+                            exp[j++]=e;  //½«³öÕ»ÔªËØ¼ÓÈëÊı×é
                             exp[j++]=' ';
 					}
 					popChStack(&s,&k);
 					break;
 			case'+':
-			case'-':while(getTopChStack(&s,&k)&&k!='('){  //¼ÓºÅºÍ¼õºÅÖ»ÓĞÓöµ½×óÀ¨ºÅ²ÅÈëÕ»
+			case'-':if(oper==1){  //modification ¼ì²éÔËËã·ûÊÇ·ñÖØ¸´ÊäÈë
+                        printf("Enter Error!");
+                        exit(-1);
+					}
+                    while(getTopChStack(&s,&k)&&k!='('){  //¼ÓºÅºÍ¼õºÅÖ»ÓĞÓöµ½×óÀ¨ºÅ²ÅÈëÕ»
 						popChStack(&s,&e);
                         exp[j++]=e;  //½«³öÕ»ÔªËØ¼ÓÈëÊı×é
 						exp[j++]=' ';
 					}
 					pushChStack(&s,ch);
+					oper=1;  //modification
 					break;
 			case'*':
-			case'/':while(getTopChStack(&s,&e)&&(e=='*'||e=='/')){  //³ËºÅÓë³ıºÅÖ»ÓĞÓöµ½Õ»¶¥ÊÇ³ËºÅºÍ³ıºÅÊ±²Å´òÓ¡½ø±í´ïÊ½
+			case'/':if(oper==1){  //modification ¼ì²éÔËËã·ûÊÇ·ñÖØ¸´ÊäÈë
+                        printf("Enter Error!");
+                        exit(-1);
+					}
+                    while(getTopChStack(&s,&e)&&(e=='*'||e=='/')){  //³ËºÅÓë³ıºÅÖ»ÓĞÓöµ½Õ»¶¥ÊÇ³ËºÅºÍ³ıºÅÊ±²Å´òÓ¡½ø±í´ïÊ½
 						popChStack(&s,&e);
 						exp[j++]=e;  //½«³öÕ»ÔªËØ¼ÓÈëÊı×é
 						exp[j++]=' ';
 					}
 					pushChStack(&s,ch);
+					oper=1;  //modification
 					break;
 			case' ':break;
 			default:while((ch>='0'&&ch<='9')||ch=='i'||ch=='.'){  //¼ì²éÊôÓÚÊı×ÖµÄ²¿·Ö
 						exp[j++]=ch;
 						ch=str[i++];
+						oper=0;
+					}
+					if(ch!='+'&&ch!='-'&&ch!='*'&&ch!='/'&&ch!=' '&&ch!='\0'&&ch!='('&&ch!=')'){  //modification ¼ì²éÈç¹ûÊÇÔËËã·ûÒÔÍâµÄ×Ö·û£¬Ôò±¨´í
+                        printf("Enter Error!");
+                        exit(-1);
 					}
 					i--;
 					exp[j++]=' ';
             }
 		ch=str[i++];
 	}
+	if(str[i-2]!=' '&&!(str[i-2]>=0&&str[i-2]<=9)&&str[i-1]!=')'){  //modification ¼ì²éÄ©Î²×Ö·ûÈç¹ûÊÇÔËËã·û»ò×óÀ¨ºÅµÄ»òÔò±¨´í
+        printf("Enter Error!");
+        exit(-1);
+    }
 	while(popChStack(&s,&e)){
 		exp[j++]=e;
 		exp[j++]=' ';
@@ -82,6 +102,15 @@ complex double compute(char a[]){
 
     initStack(&s,SIZE);
 	while(a[i]!='\0'){
+        if(a[i]=='i')  //modification ¼ì²éµ½Êı×Ö¿ªÍ·ÊÇi£¬¼ÙÉèÎªĞéÊıi
+        {
+            if(a[i+1]!=' '&&a[i+1]!='\0'){  //modification ĞéÊıºóÓ¦¸ÃÊÇ¿Õ¸ñ»ò¿Õ×Ö·û
+				printf("Error!");
+				exit(-1);
+			}
+			value=_Complex_I;  //modification Ã»ÓĞ´íÎó£¬ÔòÈ·¶¨ÎªĞéÊıi
+			pushStack(&s,value);
+        }
 		if(a[i]!=' '&&(a[i]>='0'&&a[i]<='9')){  //½«×Ö·û´®×ª»»ÎªÊı×Ö
 			value=0.0;
 			while(a[i]!=' '&&a[i]!='i'&&a[i]!='.'){
@@ -104,7 +133,7 @@ complex double compute(char a[]){
 		if(a[i]=='i'){  //i±íÊ¾ĞéÊı½áÎ²£¬iºóÓ¦¸ÃÊÇ¿Õ¸ñ
 			if(a[i+1]!=' '&&a[i+1]!='\0'){
 				printf("Error!");
-				return 0;
+				exit(-1);
 			}
 			value=value*_Complex_I;
 		}
@@ -132,6 +161,10 @@ complex double compute(char a[]){
 			case'/':
 				popStack(&s,&x1);
 				popStack(&s,&x2);
+				if(x1==0){
+                    printf("Error!the divisor can not be zero");//³ıÊıÊÇÁãÔò±¨´í
+                    exit(-1);
+;				}
 				result=x2/x1;
 				pushStack(&s,result);
 				break;
@@ -151,5 +184,6 @@ complex double compute(char a[]){
             }
 		}
 }
+
 
 

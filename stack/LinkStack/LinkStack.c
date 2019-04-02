@@ -57,22 +57,16 @@ Status destroyLStack(LinkStack *s){   //销毁栈
 		(s->top)->next=pc->next;  //栈顶指向要出栈结点的下一个结点
 	    free(pc);  //释放结点
 	}
-    free(s->top);  //释放栈顶，销毁空栈
+    free(s->top);  //释放栈顶
+    free(s);  // 销毁空栈
 
 	return SUCCESS;
 }
 Status LStackLength(LinkStack *s,int *length){    //检测栈长度
-    LinkStackPtr pt;
-	*length=0;  //初始化长度为零
-
 	if(!s)  //检查是否为空栈以及栈是否存在
 	return ERROR;
 
-	pt=s->top;
-	while(pt->next){  //检查到一个结点的next指向不为空，则转向下一个结点
-		(*length)++;
-		pt=pt->next;
-	}
+	*length=s->count+1; //通过count元素获得栈的大小 
 
 	return SUCCESS;
 }
